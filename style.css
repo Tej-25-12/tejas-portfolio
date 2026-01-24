@@ -107,11 +107,9 @@ main {
     opacity 0.25s ease-in,
     transform 0.35s ease-in;
 }
-/* =========================
-   Hero reveal for image
-   ========================= */
+
 .mypics.hero-reveal {
-  transform: translateX(-100px); /* start off-screen left */
+  transform: translateX(-100px);
   opacity: 0;
   transition: 
     transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
@@ -119,16 +117,13 @@ main {
 }
 
 .mypics.hero-reveal.active {
-  transform: translateX(0); /* slide into place */
+  transform: translateX(0);
   opacity: 1;
 }
 
-/* =========================
-   Hero reveal for text (unchanged)
-   ========================= */
 .hero-reveal {
   opacity: 0;
-  transform: translateY(80px); /* vertical movement for text */
+  transform: translateY(80px);
   transition:
     opacity 1.2s ease-out,
     transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
