@@ -107,17 +107,38 @@ main {
     opacity 0.25s ease-in,
     transform 0.35s ease-in;
 }
+/* =========================
+   Hero reveal for image
+   ========================= */
+.mypics.hero-reveal {
+  transform: translateX(-100px); /* start off-screen left */
+  opacity: 0;
+  transition: 
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+    opacity 1.2s ease-out;
+}
+
+.mypics.hero-reveal.active {
+  transform: translateX(0); /* slide into place */
+  opacity: 1;
+}
+
+/* =========================
+   Hero reveal for text (unchanged)
+   ========================= */
 .hero-reveal {
   opacity: 0;
-  transform: translateY(80px);
+  transform: translateY(80px); /* vertical movement for text */
   transition:
     opacity 1.2s ease-out,
     transform 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
 .hero-reveal.active {
   opacity: 1;
   transform: translateY(0);
 }
+
 .reveal-left {
   transform: translateX(-100px);
 }
