@@ -9,6 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="icon" href="igold.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Ysabeau+Office:ital,wght@0,1..1000;1,1..1000&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
@@ -265,8 +268,8 @@
         <div class="msgbox scroll-reveal">
           <form id="feedback">
             <h2 class="scroll-reveal">Feel free to send me a message or any word of appreciation.</h2>
-            <input type="text" id="name" name="name" placeholder="Your Full Name" class="me-name" required> 
-            <input type="email" id="mail" name="mail" placeholder="Your Email Address" class="me-email" required>
+            <input type="text" id="name" name="name" placeholder="Your Full Name" class="me-name">  
+            <input type="email" id="mail" name="mail" placeholder="Your Email Address" class="me-email">  
             <div class="star-rating" id="starRating">
               <span style="font-size: medium;" class="pform">Kindly provide your rating for this page:</span>
               <span class="star" data-value="1">&#9733;</span>
@@ -276,14 +279,12 @@
               <span class="star" data-value="5">&#9733;</span>
             </div>
             <input type="hidden" id="ratingValue" name="rating" value="0">
-            <textarea name="message" id="FeedbackText" cols="85" rows="7" placeholder="Your Message" required></textarea>  
+            <textarea name="message" id="FeedbackText" cols="85" rows="7" placeholder="Your Message"></textarea>  
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
             <button type="submit" class="submit-btn">SUBMIT</button>
-          </form>           
+          </form>
         </div>
       </div> 
-      <p id="popup" style="display:none; color:green;">
-        Message sent successfully.
-      </p>
     </section>  
   </main>
   <script src="script.js"></script>

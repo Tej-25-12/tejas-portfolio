@@ -52,7 +52,22 @@ function highlightStars(rating) {
 
 // ====== Feedback Form Submission ======
 const feedbackForm = document.getElementById('feedback');
-const popup = document.getElementById('popup');
+const formStatus = document.getElementById('formStatus');
+const CONTACT_EMAIL = 'tejtech2604@gmail.com';
+
+function setFormStatus(message = '', status = '') {
+  if (!formStatus) return;
+  formStatus.textContent = message;
+  if (status) formStatus.dataset.status = status;
+  else delete formStatus.dataset.status;
+}
+
+function setInputError(input, hasError) {
+  if (!input) return;
+  input.classList.toggle('input-error', hasError);
+  if (hasError) input.setAttribute('aria-invalid', 'true');
+  else input.removeAttribute('aria-invalid');
+}
 
 feedbackForm?.addEventListener('submit', async function (e) {
   e.preventDefault(); // Prevent page reload
@@ -69,90 +84,41 @@ feedbackForm?.addEventListener('submit', async function (e) {
   const message = messageInput.value.trim();
   const rating = ratingInput?.value ?? '0';
 
+  setFormStatus('');
+  setInputError(nameInput, false);
+  setInputError(emailInput, false);
+  setInputError(messageInput, false);
+
   if (!name) {
-    alert('Please enter your full name.');
+    setInputError(nameInput, true);
+    setFormStatus('Please enter your full name.', 'error');
     nameInput.focus();
     return;
   }
 
   if (!email) {
-    alert('Please enter your email address.');
+    setInputError(emailInput, true);
+    setFormStatus('Please enter your email address.', 'error');
     emailInput.focus();
     return;
   }
 
   if (!emailInput.checkValidity()) {
-    alert('Please enter a valid email address.');
+    setInputError(emailInput, true);
+    setFormStatus('Please enter a valid email address.', 'error');
     emailInput.focus();
     return;
   }
 
   if (!message) {
-    alert('Please enter your message.');
+    setInputError(messageInput, true);
+    setFormStatus('Please enter your message.', 'error');
     messageInput.focus();
     return;
   }
 
-  if (!this.checkValidity()) return;
-
   const submitBtn = this.querySelector('button[type="submit"]');
   if (submitBtn) submitBtn.disabled = true;
-
-  try {
-    const endpoint =
-      window.location.protocol === 'file:' ||
-      ((window.location.hostname === 'localhost' ||
-        window.location.hostname === '127.0.0.1') &&
-        window.location.port !== '5000')
-        ? 'http://localhost:5000/submit-feedback'
-        : '/submit-feedback';
-
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, message, rating }),
-    });
-
-    const result = await response.json().catch(() => ({}));
-
-    if (!response.ok || result.status !== 'success') {
-      throw new Error(result.error || `Server error (${response.status})`);
-    }
-
-    if (popup) {
-      popup.textContent = 'Message sent successfully.';
-      popup.style.color = 'green';
-      popup.style.display = 'block';
-    }
-    alert('Message sent successfully.');
-
-    this.reset();
-    highlightStars(0);
-
-    setTimeout(() => {
-      if (popup) popup.style.display = 'none';
-    }, 3000);
-  } catch (err) {
-    console.error(err);
-
-    const isNetworkError = err instanceof TypeError;
-    const errorMessage = isNetworkError
-      ? 'Cannot connect to the server. Start the backend on http://localhost:5000.'
-      : err?.message || 'Failed to send. Please try again later.';
-
-    if (popup) {
-      popup.textContent = errorMessage;
-      popup.style.color = 'red';
-      popup.style.display = 'block';
-    }
-    alert(errorMessage);
-
-    setTimeout(() => {
-      if (popup) popup.style.display = 'none';
-    }, 4000);
-  } finally {
-    if (submitBtn) submitBtn.disabled = false;
-  }
 });
 
 // ====== Scroll Reveal Animation ======
@@ -267,3 +233,29 @@ navLinks.forEach(link => {
 window.addEventListener('scroll', handleScrollReveal, { passive: true });
 window.addEventListener('load', handleScrollReveal);
 handleScrollReveal();
+
+document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', function() {
+      document.getElementById('ratingValue').value = this.dataset.value;
+    });
+  });
+
+document.getElementById('feedback').addEventListener('submit', function(event) {
+  event.preventDefault(); // prevent actual form submission
+
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('mail').value;
+  const rating = document.getElementById('ratingValue').value;
+  const message = document.getElementById('FeedbackText').value;
+
+    // Build mailto link
+  const subject = encodeURIComponent("Website Feedback from " + name);
+  const body = encodeURIComponent(
+    "Name: " + name + "\n" +
+    "Email: " + email + "\n" +
+    "Rating: " + rating + " stars\n\n" +
+    "Message:\n" + message
+  );
+  const mailtoLink = `mailto:tejtech2604@gmail.com?subject=${subject}&body=${body}`;
+  window.location.href = mailtoLink;
+});

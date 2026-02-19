@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 
-  font-family: "Roboto", sans-serif;
+  font-family:"Roboto", sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -642,6 +642,24 @@ main {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 6px;
+}
+.msgbox input.input-error,
+.msgbox textarea.input-error {
+  border-color: #ff4c42;
+  box-shadow: 0 0 0 3px rgba(255, 76, 66, 0.15);
+}
+.form-status {
+  min-height: 18px;
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #555;
+}
+.form-status[data-status="error"] {
+  color: #ff4c42;
+}
+.form-status[data-status="success"] {
+  color: #1a7f37;
 }
 .me-name {
   margin-bottom: 7px;
