@@ -1,17 +1,14 @@
-// ====== FAQ Accordion Toggle ======
 document.querySelectorAll('.faq-question').forEach(button => {
   button.addEventListener('click', () => {
     const faqItem = button.parentElement;
     const answer = faqItem.querySelector('.faq-answer');
     
-    // Close all other answers
     document.querySelectorAll('.faq-answer').forEach(ans => {
       if (ans !== answer) {
         ans.style.maxHeight = null;
       }
     });
     
-    // Toggle current answer
     if (answer.style.maxHeight) {
       answer.style.maxHeight = null;
     } else {
@@ -20,7 +17,6 @@ document.querySelectorAll('.faq-question').forEach(button => {
   });
 });
 
-// ====== Star Rating ======
 const stars = document.querySelectorAll('#starRating .star');
 const ratingInput = document.getElementById('ratingValue');
 
@@ -50,7 +46,6 @@ function highlightStars(rating) {
   });
 }
 
-// ====== Feedback Form Submission ======
 const feedbackForm = document.getElementById('feedback');
 const formStatus = document.getElementById('formStatus');
 const CONTACT_EMAIL = 'tejtech2604@gmail.com';
@@ -70,7 +65,7 @@ function setInputError(input, hasError) {
 }
 
 feedbackForm?.addEventListener('submit', async function (e) {
-  e.preventDefault(); // Prevent page reload
+  e.preventDefault();
 
   const nameInput = document.getElementById('name');
   const emailInput = document.getElementById('mail');
@@ -121,7 +116,6 @@ feedbackForm?.addEventListener('submit', async function (e) {
   if (submitBtn) submitBtn.disabled = true;
 });
 
-// ====== Scroll Reveal Animation ======
 const navLinkCandidates = Array.from(document.querySelectorAll('.nav a[href^="#"]'));
 const navLinks = navLinkCandidates.filter(link => {
   const hash = link.getAttribute('href');
@@ -241,14 +235,13 @@ document.querySelectorAll('.star').forEach(star => {
   });
 
 document.getElementById('feedback').addEventListener('submit', function(event) {
-  event.preventDefault(); // prevent actual form submission
+  event.preventDefault();
 
   const name = document.getElementById('name').value;
   const email = document.getElementById('mail').value;
   const rating = document.getElementById('ratingValue').value;
   const message = document.getElementById('FeedbackText').value;
 
-    // Build mailto link
   const subject = encodeURIComponent("Website Feedback from " + name);
   const body = encodeURIComponent(
     "Name: " + name + "\n" +

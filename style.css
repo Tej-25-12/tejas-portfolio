@@ -685,10 +685,6 @@ main {
   color: #555;
 }
 
-/* -------------------- */
-/* Responsive (Mobile)  */
-/* -------------------- */
-
 @media (max-width: 768px) {
   header {
     position: sticky;

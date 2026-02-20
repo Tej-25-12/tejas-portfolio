@@ -10,14 +10,11 @@ const PORT = Number(process.env.PORT) || 5000;
 
 app.use(cors());
 
-// Middleware to parse POST data
 app.use(express.json({ limit: '20kb' }));
 app.use(express.urlencoded({ extended: true, limit: '20kb' }));
 
-// Serve static frontend files
 app.use(express.static(path.join(__dirname, '../Frontend')));
 
-// ===== Utility Functions =====
 function cleanHeaderValue(value) {
   return String(value ?? '').replace(/[\r\n]+/g, ' ').trim();
 }
@@ -63,7 +60,6 @@ function getTransporter() {
   return transporter;
 }
 
-// ===== Feedback Route =====
 app.post('/submit-feedback', async (req, res) => {
   const { name, email, message, rating } = req.body ?? {};
 
@@ -73,7 +69,6 @@ app.post('/submit-feedback', async (req, res) => {
   const cleanRating = cleanHeaderValue(rating);
   const ratingLabel = cleanRating && cleanRating !== '0' ? cleanRating : 'N/A';
 
-  // Validation
   if (!cleanName || !cleanEmail || !cleanMessage) {
     return res.status(400).json({
       status: 'error',
@@ -138,7 +133,6 @@ app.post('/submit-feedback', async (req, res) => {
   }
 });
 
-// ===== Start Server =====
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);
 });
